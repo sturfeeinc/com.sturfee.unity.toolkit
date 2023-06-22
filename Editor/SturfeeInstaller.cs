@@ -31,7 +31,7 @@ public class SturfeeInstaller : EditorWindow
         "https://github.com/sturfeeinc/com.sturfee.digital-twin.hd.git#3.0",
         "https://github.com/sturfeeinc/com.sturfee.vps.core.git#3.0",
         "https://github.com/sturfeeinc/com.sturfee.vps.networking.git#3.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.sdk.git#3.0",
+        "https://github.com/sturfeeinc/com.sturfee.vps.sdk.git#3.1",
         "https://github.com/sturfeeinc/com.sturfee.xrcs.git#3.0"
     };
 
