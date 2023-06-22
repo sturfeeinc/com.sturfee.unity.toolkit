@@ -1,0 +1,23 @@
+{
+  "name": "com.sturfee.unity.toolkit",
+  "version": "3.0.0",
+  "displayName": "Sturfee Unity Toolkit",
+  "unity": "2021.3",
+  "unityRelease": "9f1",
+  "keywords": [
+    "sturfee",
+    "vps",
+    "localization",
+    "ar"
+  ],
+  "author": {
+    "name": "Sturfee Inc",
+    "email": "contact@sturfee.com",
+    "url": "https://sturfee.com"
+  },
+  "type": "library",
+  "description": "Unity Toolkit to manage all Sturfee modules, component, integrations, and samples",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  }
+}
