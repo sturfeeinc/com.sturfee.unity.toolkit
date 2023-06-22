@@ -168,6 +168,7 @@ public class SturfeeInstaller : EditorWindow
                 Debug.Log(_request.Error.message);
                 _errorMessage = _request.Error.message;
                 _hasError = true;
+                _showSuccess = false;
             }                
 
             EditorApplication.update -= Progress;
