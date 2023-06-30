@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -10,6 +11,8 @@ using System;
 
 public class SturfeeInstaller : EditorWindow
 {
+    private static string _currentVersion = "3.1";
+
     private static bool _useDev = false;
 
     private static bool _isLoading = false;
@@ -26,13 +29,13 @@ public class SturfeeInstaller : EditorWindow
         "https://github.com/BrentM-Sturfee/glTFast.git#aws-req",
         "https://github.com/BrentM-Sturfee/NGeoHash.git",
         "https://github.com/yoshida190/dotween.git#v1.2.632-upm",
-        "https://github.com/sturfeeinc/com.sturfee.digital-twin.git#3.0",
-        "https://github.com/sturfeeinc/com.sturfee.digital-twin.cms.git#3.0",
-        "https://github.com/sturfeeinc/com.sturfee.digital-twin.hd.git#3.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.core.git#3.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.networking.git#3.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.sdk.git#3.1",
-        "https://github.com/sturfeeinc/com.sturfee.xrcs.git#3.0"
+        "https://github.com/sturfeeinc/com.sturfee.digital-twin.git#release-3.1.0",
+        "https://github.com/sturfeeinc/com.sturfee.digital-twin.cms.git#release-3.1.0",
+        "https://github.com/sturfeeinc/com.sturfee.digital-twin.hd.git#release-3.1.0",
+        "https://github.com/sturfeeinc/com.sturfee.vps.core.git#release-3.1.0",
+        "https://github.com/sturfeeinc/com.sturfee.vps.networking.git#release-3.1.0",
+        "https://github.com/sturfeeinc/com.sturfee.vps.sdk.git#release-3.1.0",
+        "https://github.com/sturfeeinc/com.sturfee.xrcs.git#release-3.1.0"
     };
 
     private static string[] _sturfeeDevPackages = new string[]
@@ -64,7 +67,7 @@ public class SturfeeInstaller : EditorWindow
     };
 
 
-    [MenuItem("Sturfee/Version Manager/Install 3.0")]
+    [MenuItem("Sturfee/Version Manager/Install 3.1")]
     static void InstallVersionThree()
     {
         _isLoading = false;
@@ -101,11 +104,11 @@ public class SturfeeInstaller : EditorWindow
             if (_showSuccess)
             {
                 _showSuccess = false;
-                EditorUtility.DisplayDialog("Sturfee Unity Toolkit", "Sturfee SDK 3.0 Installed!", "Ok");
+                EditorUtility.DisplayDialog("Sturfee Unity Toolkit", $"Sturfee SDK {_currentVersion} Installed!", "Ok");
 
                 if (UnityEngine.Rendering.GraphicsSettings.renderPipelineAsset == null)
                 {
-                    if (EditorUtility.DisplayDialog("Sturfee Unity Toolkit", "Sturfee SDK 3.0 requires Unity's Universal Render Pipeline (URP). Please install and configure URP.", "Read More"))
+                    if (EditorUtility.DisplayDialog("Sturfee Unity Toolkit", $"Sturfee SDK {_currentVersion} requires Unity's Universal Render Pipeline (URP). Please install and configure URP.", "Read More"))
                     {
                         Application.OpenURL("https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.1/manual/InstallURPIntoAProject.html");
                     }
