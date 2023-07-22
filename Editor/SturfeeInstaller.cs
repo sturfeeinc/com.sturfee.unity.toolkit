@@ -171,14 +171,22 @@ public class SturfeeInstaller : EditorWindow
         }
         else
         {
-            Debug.Log($"Installing Sturfee Modules...");
-            for(var i=0; i<_sturfeePackages.Length; i++) {
+            Debug.Log($"Installing Sturfee Modules version ({_selectedVersion}) ...");
+            var versionedPkgs = new List<string>();
+            for (var i = 0; i < _sturfeePackages.Length; i++)
+            {
                 var pkg = _sturfeePackages[i];
-                if (pkg.Contains($"#release-")) {
-                    pkg = $"{pkg}{_selectedVersion}";
+                if (pkg.Contains($"#release-"))
+                {
+                    versionedPkgs.Add($"{pkg}{_selectedVersion}");
+                    Debug.Log($"   Adding version pkg: {pkg}{_selectedVersion}");
+                }
+                else
+                {
+                    versionedPkgs.Add(pkg);
                 }
             }
-            _request = Client.AddAndRemove(_sturfeePackages);
+            _request = Client.AddAndRemove(versionedPkgs.ToArray());
         }
     }
 
@@ -202,7 +210,7 @@ public class SturfeeInstaller : EditorWindow
                 _errorMessage = _request.Error.message;
                 _hasError = true;
                 _showSuccess = false;
-            }                
+            }
 
             EditorApplication.update -= Progress;
         }
