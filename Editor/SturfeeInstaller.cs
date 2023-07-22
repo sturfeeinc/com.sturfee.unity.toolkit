@@ -23,19 +23,27 @@ public class SturfeeInstaller : EditorWindow
 
     private static AddAndRemoveRequest _request;
 
+    private static string _selectedVersion = "3.1.1";
+
+    private static string[] _activeVersions = new string[]
+    {
+        "3.1.0",
+        "3.1.1"
+    };
+
     private static string[] _sturfeePackages = new string[]
     {
         "com.cesium.unity@1.3.1",
         "https://github.com/BrentM-Sturfee/glTFast.git#aws-req",
         "https://github.com/BrentM-Sturfee/NGeoHash.git",
         "https://github.com/yoshida190/dotween.git#v1.2.632-upm",
-        "https://github.com/sturfeeinc/com.sturfee.digital-twin.git#release-3.1.0",
-        "https://github.com/sturfeeinc/com.sturfee.digital-twin.cms.git#release-3.1.0",
-        "https://github.com/sturfeeinc/com.sturfee.digital-twin.hd.git#release-3.1.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.core.git#release-3.1.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.networking.git#release-3.1.0",
-        "https://github.com/sturfeeinc/com.sturfee.vps.sdk.git#release-3.1.0",
-        "https://github.com/sturfeeinc/com.sturfee.xrcs.git#release-3.1.0"
+        "https://github.com/sturfeeinc/com.sturfee.digital-twin.git#release-",
+        "https://github.com/sturfeeinc/com.sturfee.digital-twin.cms.git#release-",
+        "https://github.com/sturfeeinc/com.sturfee.digital-twin.hd.git#release-",
+        "https://github.com/sturfeeinc/com.sturfee.vps.core.git#release-",
+        "https://github.com/sturfeeinc/com.sturfee.vps.networking.git#release-",
+        "https://github.com/sturfeeinc/com.sturfee.vps.sdk.git#release-",
+        "https://github.com/sturfeeinc/com.sturfee.xrcs.git#release-"
     };
 
     private static string[] _sturfeeDevPackages = new string[]
@@ -67,9 +75,25 @@ public class SturfeeInstaller : EditorWindow
     };
 
 
-    [MenuItem("Sturfee/Version Manager/Install 3.1")]
-    static void InstallVersionThree()
+    [MenuItem("Sturfee/Version Manager/Install 3.1.0 (OLD)")]
+    static void InstallVersionThreeOne()
     {
+        _selectedVersion = "3.1.0";
+        _isLoading = false;
+        _isLoaded = false;
+        _hasError = false;
+        _showSuccess = true;
+
+        SturfeeInstaller window = ScriptableObject.CreateInstance<SturfeeInstaller>();
+        window.titleContent = new GUIContent { text = "Sturfee Toolkit Installer" };
+
+        window.ShowUtility();
+    }
+
+    [MenuItem("Sturfee/Version Manager/Install 3.1.1")]
+    static void InstallVersionThreeOneOne()
+    {
+        _selectedVersion = "3.1.1";
         _isLoading = false;
         _isLoaded = false;
         _hasError = false;
@@ -148,6 +172,12 @@ public class SturfeeInstaller : EditorWindow
         else
         {
             Debug.Log($"Installing Sturfee Modules...");
+            for(var i=0; i<_sturfeePackages.Length; i++) {
+                var pkg = _sturfeePackages[i];
+                if (pkg.Contains($"#release-")) {
+                    pkg = $"{pkg}{_selectedVersion}";
+                }
+            }
             _request = Client.AddAndRemove(_sturfeePackages);
         }
     }
