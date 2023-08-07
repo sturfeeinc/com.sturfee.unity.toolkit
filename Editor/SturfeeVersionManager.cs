@@ -81,7 +81,6 @@ public class SturfeeVersionManager : EditorWindow
     SturfeeVersionManager()
     {
         OnLaunch();
-        //EditorApplication.update += EditorUpdate;
     }
 
     private void OnLaunch()
@@ -114,10 +113,8 @@ public class SturfeeVersionManager : EditorWindow
             _updateData = await Get<SturfeeUpdateData>($"https://sturfee-public-share.s3.us-west-1.amazonaws.com/UnityToolkitVersionInfo.json");
             if (_updateData != null)
             {
-                //Debug.Log($"Versions: {JsonUtility.ToJson(versionData)}");
                 _updateData.Versions = _updateData.Versions.OrderByDescending(x => new Version(x.Version)).ToList();
                 // Debug.Log($"Versions Found: {JsonUtility.ToJson(_updateData)}");
-                //Debug.Log($"Versions Found: {versionData.Versions.Count}");
                 _latestVersion = _updateData.Versions.FirstOrDefault();
             }
         }
@@ -125,7 +122,6 @@ public class SturfeeVersionManager : EditorWindow
         {
             Debug.LogException(ex);
             Debug.LogError($"[Sturfee Toolkit] :: Error checking for updates!");
-            //Debug.Log($"version data = {JsonUtility.ToJson(new SturfeeToolkitVersion { Date = $"{DateTime.UtcNow.ToString("o")}"})}");
         }
         finally
         {
@@ -220,20 +216,8 @@ public class SturfeeVersionManager : EditorWindow
         }
     }
 
-    public static void DrawUIBox(Rect rect, Color borderColor, Color backgroundColor, int width = 2)
-    {
-        Rect outer = new Rect(rect);
-        Rect inner = new Rect(rect.x + width, rect.y + width, rect.width - width * 2, rect.height - width * 2);
-        EditorGUI.DrawRect(outer, borderColor);
-        EditorGUI.DrawRect(inner, backgroundColor);
-    }
-
     protected virtual void ShowMainUi()
     {
-        //Color backgroundColour = new Color32(194, 194, 194, 255);
-        //Rect borderRect = new Rect(2, 2, position.width - 4, position.height - 4);
-        //DrawUIBox(borderRect, Color.gray, backgroundColour, 2);
-
         //var boxStyle = new GUIStyle(GUI.skin.label);
         //boxStyle.normal.background = EditorGUIUtility.whiteTexture;
 
@@ -309,17 +293,9 @@ public class SturfeeVersionManager : EditorWindow
                 if (GUILayout.Button($"Install (version {_latestVersion.Version})", secondaryButtonStyle, GUILayout.Height(25)))
                 {
                     Debug.Log($"Installing version {_latestVersion.Version}...");
-
                     _isInstalling = true;
-
                     _currentVersion = _latestVersion;
-
-                    // TODO: actually install everything
                     InstallSdk();
-
-                    //string dir = LocalPath;
-                    //if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                    //File.WriteAllText(Path.Combine(LocalPath, $"{_versionFileName}"), JsonUtility.ToJson(_currentVersion));
                 }
                 EditorGUILayout.Space();
             }
@@ -397,12 +373,9 @@ public class SturfeeVersionManager : EditorWindow
 
     public static async Task<T> Get<T>(string url)
     {
-        //Debug.Log($"WebApiClient :: request => {url}");
-
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url); // $"{AppConfig.DT_API_URL}/dt_areas/groups/{groupId}/areas?radius=100");
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
         request.Method = "GET";
         request.ContentType = "application/json; charset=utf-8";
-        // TODO: auth
 
         try
         {
@@ -413,13 +386,8 @@ public class SturfeeVersionManager : EditorWindow
                 //Debug.LogError(response);
                 throw new Exception(response.StatusDescription);
             }
-
             StreamReader reader = new StreamReader(response.GetResponseStream());
             string jsonResponse = reader.ReadToEnd();
-
-            //Debug.Log(jsonResponse);
-            //return jsonResponse;
-
             var result = JsonUtility.FromJson<T>(jsonResponse);
             return result;
         }
@@ -429,8 +397,6 @@ public class SturfeeVersionManager : EditorWindow
             throw;
         }
     }
-
-
 
 }
 
