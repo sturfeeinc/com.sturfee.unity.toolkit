@@ -116,7 +116,7 @@ public class SturfeeVersionManager : EditorWindow
             {
                 //Debug.Log($"Versions: {JsonUtility.ToJson(versionData)}");
                 _updateData.Versions = _updateData.Versions.OrderByDescending(x => new Version(x.Version)).ToList();
-                Debug.Log($"Versions Found: {JsonUtility.ToJson(_updateData)}");
+                // Debug.Log($"Versions Found: {JsonUtility.ToJson(_updateData)}");
                 //Debug.Log($"Versions Found: {versionData.Versions.Count}");
                 _latestVersion = _updateData.Versions.FirstOrDefault();
             }
