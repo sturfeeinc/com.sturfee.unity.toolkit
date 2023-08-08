@@ -14,7 +14,7 @@ using UnityEditor.PackageManager.Requests;
 public class SturfeeUpdateData
 {
     public string[] Packages;
-    public List<SturfeeToolkitVersion> Versions;
+    public List<SturfeeToolkitVersion> SdkVersions;
 }
 
 [Serializable]
@@ -69,7 +69,7 @@ public class SturfeeVersionManager : EditorWindow
     };
 
 
-    [MenuItem("Sturfee/Toolkit/Version Manager")]
+    [MenuItem("Sturfee/SDK Version Manager")]
     public static void ShowVersionManager()
     {
         SturfeeVersionManager window = GetWindow<SturfeeVersionManager>();
@@ -113,9 +113,9 @@ public class SturfeeVersionManager : EditorWindow
             _updateData = await Get<SturfeeUpdateData>($"https://sturfee-public-share.s3.us-west-1.amazonaws.com/UnityToolkitVersionInfo.json");
             if (_updateData != null)
             {
-                _updateData.Versions = _updateData.Versions.OrderByDescending(x => new Version(x.Version)).ToList();
+                _updateData.SdkVersions = _updateData.SdkVersions.OrderByDescending(x => new Version(x.Version)).ToList();
                 // Debug.Log($"Versions Found: {JsonUtility.ToJson(_updateData)}");
-                _latestVersion = _updateData.Versions.FirstOrDefault();
+                _latestVersion = _updateData.SdkVersions.FirstOrDefault();
             }
         }
         catch (Exception ex)
