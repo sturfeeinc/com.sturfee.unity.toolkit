@@ -308,7 +308,7 @@ public class SturfeeVersionManager : EditorWindow
         {
             EditorGUILayout.BeginVertical(EditorStyles.helpBox); // boxStyle);
             {
-                GUILayout.Label($"Release Notes ({_latestVersion.Version})", headerStyle);
+                GUILayout.Label($"Release Notes ({_currentVersion.Version})", headerStyle);
                 EditorGUILayout.Space();
                 EditorGUILayout.Space();
 
