@@ -270,9 +270,9 @@ public class SturfeeVersionManager : EditorWindow
                     if (GUILayout.Button("Update", secondaryButtonStyle, GUILayout.Height(25)))
                     {
                         Debug.Log($"Updating to version {_latestVersion.Version}...");
-                        string dir = LocalPath;
-                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                        File.WriteAllText(Path.Combine(LocalPath, $"{_versionFileName}"), JsonUtility.ToJson(_latestVersion));
+                        _isInstalling = true;
+                        _currentVersion = _latestVersion;
+                        InstallSdk();
                     }
 
                     EditorGUILayout.Space();
