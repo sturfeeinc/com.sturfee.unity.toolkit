@@ -306,22 +306,33 @@ public class SturfeeVersionManager : EditorWindow
 
         if (!_isInstalling && _currentVersion != null)
         {
+
             EditorGUILayout.BeginVertical(EditorStyles.helpBox); // boxStyle);
             {
-                GUILayout.Label($"Release Notes ({_currentVersion.Version})", headerStyle);
-                EditorGUILayout.Space();
-                EditorGUILayout.Space();
-
                 scrollPos =
-                EditorGUILayout.BeginScrollView(scrollPos);
-                foreach (var note in _currentVersion.UpdateNotes)
+                  EditorGUILayout.BeginScrollView(scrollPos);
+                foreach (var version in _updateData.Versions)
                 {
-                    GUILayout.Label($"- {note}", labelStyle);
+                    GUILayout.Label($"Release Notes ({version.Version})", headerStyle);
+                    EditorGUILayout.Space();
+                  
+                    foreach (var note in version.UpdateNotes)
+                    {
+                        GUILayout.Label($"- {note}", labelStyle);
+                    }                    
+
+                    EditorGUILayout.Space();
+                    EditorGUILayout.Space();
+
+                    var rect = EditorGUILayout.BeginHorizontal();
+                    Handles.color = Color.gray;
+                    Handles.DrawLine(new Vector2(rect.x - 15, rect.y), new Vector2(rect.width + 15, rect.y));
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.Space();
                 }
                 EditorGUILayout.EndScrollView();
 
-
-                EditorGUILayout.Space();
             }
             EditorGUILayout.EndVertical();
             EditorGUILayout.Space();
